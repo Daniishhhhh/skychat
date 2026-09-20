@@ -1,56 +1,72 @@
-# Getting Started with Create React App
+# SkyChat
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SkyChat is a React-based chat frontend with AWS Amplify authentication and a WebSocket-powered public chat room.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Email/password sign up and sign in with AWS Cognito (Amplify Auth)
+- Email verification flow with resend code support
+- Real-time public chat UI over a WebSocket API
+- Connection status and authenticated user session handling
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React (Create React App)
+- AWS Amplify Auth (`@aws-amplify/auth`)
+- WebSocket API (AWS API Gateway endpoint)
+- GitHub Actions for CI/CD
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Local Development
 
-# ☁️ SkyChat — Cloud-Based Real-Time Chat Application
+### Prerequisites
 
-**SkyChat** is a modern, full-stack **real-time chat web application** built with a **serverless architecture** on AWS and a responsive **React.js frontend**.  
-It enables authenticated users to communicate instantly through WebSockets with messages securely stored in DynamoDB — no traditional servers required.
+- Node.js 20+
+- npm
 
----
+### Install
 
-## 🚀 Project Overview
+```bash
+npm ci
+```
 
-SkyChat is designed to demonstrate **real-world cloud engineering**, **scalability**, and **modern app design**.  
-It provides a seamless chat experience powered by AWS-managed services, offering high availability, fault tolerance, and near-zero maintenance.
+### Run the app
 
-Users can register, verify their emails, log in, and participate in live chat rooms — all in real time.  
-The app combines **cloud-native services** with a sleek **React UI**, making it a complete end-to-end product.
+```bash
+npm start
+```
 
----
+Open `http://localhost:3000`.
 
-## 🎯 Key Features
+### Run tests
 
-- 🔐 **User Authentication** — Managed through **AWS Cognito** (sign-up, login, email verification).  
-- ⚡ **Real-Time Messaging** — Instant message exchange via **WebSockets** using **API Gateway + Lambda**.  
-- ☁️ **Serverless Backend** — Entire backend logic built with **AWS Lambda**, no EC2 or manual servers.  
-- 💬 **Persistent Storage** — Chat messages and active connections stored in **DynamoDB**.  
-- 🧑‍💻 **Modern UI** — Built with **React.js**, responsive across desktop and mobile.  
-- 🌍 **Global Access** — Frontend hosted on **S3** and optionally accelerated with **CloudFront CDN**.  
-- 🔒 **Security First** — All traffic and credentials managed securely using AWS IAM and Cognito tokens.
+```bash
+npm test -- --watchAll=false
+```
 
----
+### Build
 
-## 🧠 Tech Stack
+```bash
+npm run build
+```
 
-| Layer | Technology |
-|-------|-------------|
-| Frontend | React.js, HTML, CSS, JavaScript |
-| Authentication | AWS Cognito |
-| Messaging | AWS API Gateway (WebSocket) |
-| Compute Logic | AWS Lambda (Node.js) |
-| Database | Amazon DynamoDB |
-| Hosting | Amazon S3, CloudFront |
-| Permissions | AWS IAM Roles & Policies |
+## Configuration
+
+Amplify auth settings are defined in:
+
+- `src/aws-exports.js`
+
+Update Cognito values there for your AWS environment.
+
+## CI/CD
+
+This repository includes two GitHub Actions workflows:
+
+- **CI** (`.github/workflows/ci.yml`)
+  - Triggers on push and pull request to `main`
+  - Runs dependency installation, tests, and production build
+
+- **CD** (`.github/workflows/cd.yml`)
+  - Triggers on push to `main` and manual dispatch
+  - Builds and deploys the app to GitHub Pages
+
+To use CD, enable **GitHub Pages** in repository settings with **GitHub Actions** as the source.
