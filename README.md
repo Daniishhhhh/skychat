@@ -53,7 +53,7 @@ npm run build
 
 Amplify auth settings are defined in:
 
-- `/home/runner/work/skychat/skychat/src/aws-exports.js`
+- `src/aws-exports.js`
 
 Update Cognito values there for your AWS environment.
 

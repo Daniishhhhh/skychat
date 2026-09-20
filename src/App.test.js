@@ -1,8 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('@aws-amplify/auth', () => ({
+  getCurrentUser: jest.fn().mockRejectedValue(new Error('No authenticated user')),
+  signOut: jest.fn(),
+}));
+
+test('renders authentication screen for signed-out users', async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /skychat/i })).toBeInTheDocument();
 });
